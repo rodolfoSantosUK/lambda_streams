@@ -3,10 +3,7 @@ package com.semanticsquare.lambdas.predicate_function;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
+import java.util.function.*;
 
 public class FunctionalInterfaceDemo {
 
@@ -19,10 +16,12 @@ public class FunctionalInterfaceDemo {
         String doc4 = "<html><body>Java 8 goes one more step ahead and has developed a streams API which lets us think about parallelism</body></html>";
 
         List<String> documents = new ArrayList<>(Arrays.asList(doc1, doc2, doc3, doc4));
+        List<String> targetDocuments = new ArrayLIst<>();
 
         for (String doc : documents) {
 
             BiFunction<String, String, Boolean> biFunction = (d, c) -> d.contains(c);
+
 
             if (biFunction.apply(doc, "streams")) {
 
@@ -33,22 +32,40 @@ public class FunctionalInterfaceDemo {
                 removeStopwords.apply(doc);
 
                 Function<String, String> doProcessor = htmlCleaner.andThen(removeStopwords);
-                doc = transform(doc, doProcessor );
+                doc = transform(doc, doProcessor);
                 System.out.println(doProcessor);
 
+                targetDocuments.add(doc);
+
             }
+        }
 
+        targetDocuments.forEach(d -> System.out.println(d));
 
+        for (String doc :  targetDocuments) {
+            try {
+                // something
+            } catch (Exception e) {
+                print(() -> e.getMessage() + " ~ " + doc);
+            }
         }
 
 
+
+    }
+
+    private static boolean errorFlag = true ;
+    private static void print(Supplier<String> supplier ) {
+        if(errorFlag) {
+            System.out.println(supplier.get());
+        }
     }
 
     static boolean filter(String doc, Predicate<String> filter) {
         return filter.test(doc);
     }
 
-//    static String transform(String doc, UnaryOperator<String> transformer) {
+    //    static String transform(String doc, UnaryOperator<String> transformer) {
 //        return transformer.apply(doc);
 //    }
     static String transform(String doc, Function<String, String> transformer) {
