@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 public class FunctionalInterfaceDemo {
 
@@ -20,23 +21,24 @@ public class FunctionalInterfaceDemo {
         List<String> documents = new ArrayList<>(Arrays.asList(doc1, doc2, doc3, doc4));
 
         for (String doc : documents) {
-            //boolean isTargetDoc = filter(doc, d -> d.contains("stream"));
+
             BiFunction<String, String, Boolean> biFunction = (d, c) -> d.contains(c);
-            if (biFunction.apply(doc, "stream")) {
-                //doc = transform(doc, d -> Indexer.stripHtmlTags(d));
-                //doc = transform(doc, d -> Indexer.removeStopwords(d));
+
+            if (biFunction.apply(doc, "streams")) {
 
                 Function<String, String> htmlCleaner = d -> Indexer.stripHtmlTags(d);
-                //doc = transform(doc, htmlCleaner);
+                doc = transform(doc, d -> Indexer.stripHtmlTags(d));
 
-                Function<String, String> stopwordRemover = d -> Indexer.removeStopwords(d);
-                //stopwordRemover.apply(doc);
+                Function<String, String> removeStopwords = d -> Indexer.removeStopwords(d);
+                removeStopwords.apply(doc);
 
-                Function<String, String> docProcessor = htmlCleaner.andThen(stopwordRemover);
-                doc = transform(doc, docProcessor);
+                Function<String, String> doProcessor = htmlCleaner.andThen(removeStopwords);
+                doc = transform(doc, doProcessor );
+                System.out.println(doProcessor);
 
-                System.out.println(doc);
             }
+
+
         }
 
 
@@ -46,13 +48,12 @@ public class FunctionalInterfaceDemo {
         return filter.test(doc);
     }
 
-    /*static String transform(String doc, UnaryOperator<String> transformer) {
-        return transformer.apply(doc);
-    }*/
+//    static String transform(String doc, UnaryOperator<String> transformer) {
+//        return transformer.apply(doc);
+//    }
     static String transform(String doc, Function<String, String> transformer) {
         return transformer.apply(doc);
     }
-
 
 
 }
