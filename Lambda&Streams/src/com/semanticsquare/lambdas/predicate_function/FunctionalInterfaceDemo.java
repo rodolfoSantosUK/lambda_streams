@@ -49,9 +49,6 @@ public class FunctionalInterfaceDemo {
                 print(() -> e.getMessage() + " ~ " + doc);
             }
         }
-
-
-
     }
 
     private static boolean errorFlag = true ;
