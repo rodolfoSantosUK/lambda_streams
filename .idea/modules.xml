@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../lambda_streams/Lambda&amp;Streams/Lambda&amp;Streams.iml" filepath="$PROJECT_DIR$/../lambda_streams/Lambda&amp;Streams/Lambda&amp;Streams.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lambda_streams_2020.iml" filepath="$PROJECT_DIR$/.idea/lambda_streams_2020.iml" />
+    </modules>
+  </component>
+</project>
